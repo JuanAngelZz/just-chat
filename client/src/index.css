@@ -1,0 +1,212 @@
+@import '@radix-ui/themes/styles.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Firefox (uncomment to work in Firefox, although other properties will not work!)  */
+/** {
+  scrollbar-width: thin;
+  scrollbar-color: #397524 #DFE9EB;
+}*/
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+*::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #dfe9eb;
+}
+
+*::-webkit-scrollbar-track:hover {
+  background-color: #b8c0c2;
+}
+
+*::-webkit-scrollbar-track:active {
+  background-color: #b8c0c2;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--accent-indicator);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--accent-indicator);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--accent-indicator);
+}
+
+.chat {
+  /* background-color: #e5e5f7;
+  opacity: 0.3;
+  background: radial-gradient(
+      circle,
+      transparent 20%,
+      #e5e5f7 20%,
+      #e5e5f7 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        #e5e5f7 20%,
+        #e5e5f7 80%,
+        transparent 80%,
+        transparent
+      )
+      17.5px 17.5px,
+    linear-gradient(
+        var(--accent-indicator) 1.4000000000000001px,
+        transparent 1.4000000000000001px
+      )
+      0 -0.7000000000000001px,
+    linear-gradient(
+        90deg,
+        var(--accent-indicator) 1.4000000000000001px,
+        #e5e5f7 1.4000000000000001px
+      ) -0.7000000000000001px 0;
+  background-size: 35px 35px, 35px 35px, 17.5px 17.5px, 17.5px 17.5px; */
+}
+
+.chat_text {
+  max-width: 60%; /* Aumentado a 60% para permitir más espacio */
+  align-self: flex-end;
+  font-size: 1.1rem;
+  background-color: var(--accent-indicator);
+  border-radius: 20px; /* Más redondeado */
+  color: var(--accent-contrast);
+  padding: 10px 15px; /* Más espacio interno */
+  word-break: break-word; /* Manejar mejor las palabras largas */
+  margin: 5px 0; /* Separar las burbujas de texto */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añadir sombra para profundidad */
+  position: relative;
+}
+
+.chat_text::after {
+  content: '';
+  position: absolute;
+  bottom: -7px; /* Ajustar según sea necesario */
+  right: 10px; /* Ajustar según sea necesario */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--accent-indicator);
+}
+
+.chat_text--alternative {
+  max-width: 60%;
+  align-self: flex-start;
+  font-size: 1.1rem;
+  background-color: var(--accent-3); /* Color de fondo diferente */
+  border-radius: 20px;
+  color: var(--acent-contrast);
+  padding: 10px 15px;
+  word-break: break-word;
+  margin: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.chat_text--alternative::after {
+  content: '';
+  position: absolute;
+  bottom: -7px;
+  left: 10px; /* Posicionamos a la derecha para diferenciar */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--accent-3); /* Mismo color que el fondo */
+}
+
+.clipboard {
+  border: 0;
+  width: 25px;
+  height: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  margin-left: 6px;
+  background-color: var(--accent-2);
+  cursor: pointer;
+}
+
+.clipboard:hover {
+  background-color: var(--accent-4);
+}
+
+.active {
+  background-color: var(--accent-6);
+}
+
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: var(--accent-indicator);
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: var(--accent-6);
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #bdc3c7;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100vh;
+  left: 0;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: var(--accent-1);
+  padding: 0 12px;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #373a47;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: var(--accent-9);
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}

@@ -1,0 +1,157 @@
+import { createContext, useContext, useEffect, useState } from 'react'
+import { logout, profile, register, signin, signup, verify } from '../api/auth'
+import Cookies from 'js-cookie'
+
+export const AuthContext = createContext()
+
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider')
+  }
+
+  return context
+}
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null)
+  const [errors, setErrors] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [callout, setCallout] = useState(null)
+  const token = Cookies.get('token')
+
+  useEffect(() => {
+    if (token) {
+      verifyUser()
+    } else {
+      createUser()
+    }
+  }, [token])
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => setErrors([]), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [errors])
+
+  useEffect(() => {
+    if (callout) {
+      const timer = setTimeout(() => setCallout(null), 5000)
+      return () => clearTimeout(timer)
+    }
+  }, [callout])
+
+  const signInUser = async (data) => {
+    try {
+      const res = await signin(data)
+      setUser(res.data)
+      setIsLoading(false)
+      setCallout('Login successful')
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+    }
+  }
+
+  const signUpUser = async (data) => {
+    try {
+      const res = await signup(data)
+      setUser(res.data)
+      setIsLoading(false)
+      setCallout('Registration successful')
+    } catch (error) {
+      console.log(error.response.data)
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+      console.log(errors)
+    }
+  }
+
+  const createUser = async () => {
+    try {
+      const res = await register()
+      setUser(res.data)
+      setIsLoading(false)
+      setCallout('User created successfully')
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+    }
+  }
+
+  const verifyUser = async () => {
+    try {
+      const res = await verify()
+      console.log(res)
+      setUser(res.data)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+    }
+  }
+
+  const getUser = async () => {
+    try {
+      const res = await profile()
+      setUser(res.data)
+      setIsLoading(false)
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+    }
+  }
+
+  const logoutUser = async () => {
+    try {
+      await logout()
+      setUser(null)
+      window.location.reload()
+    } catch (error) {
+      if (error.response.data.message) {
+        setErrors([error.response.data.message])
+      } else {
+        setErrors(error.response.data)
+      }
+    }
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        signInUser,
+        signUpUser,
+        createUser,
+        verifyUser,
+        getUser,
+        logoutUser,
+        errors,
+        isLoading,
+        callout,
+        setCallout
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
