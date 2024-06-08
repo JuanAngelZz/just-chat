@@ -1,5 +1,5 @@
 import app from './app.js'
-import { PORT } from './config.js'
+import { PORT, REACT_APP_URL } from './config.js'
 import { connectDB } from './db.js'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
@@ -14,7 +14,7 @@ const io = new Server(server, {
     maxDisconnectionDuration: 5 * 60 * 1000
   },
   cors: {
-    origin: process.env.REACT_APP_URL || 'http://localhost:5173',
+    origin: REACT_APP_URL,
     credentials: true
   }
 })
