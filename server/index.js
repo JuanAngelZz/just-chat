@@ -3,9 +3,9 @@ import { PORT } from './config.js'
 import { connectDB } from './db.js'
 import { createServer } from 'node:http'
 import { Server } from 'socket.io'
-import Message from './models/message.js'
-import Chatroom from './models/chatroom.js'
+import dotenv from 'dotenv'
 
+dotenv.config()
 connectDB()
 
 const server = createServer(app)

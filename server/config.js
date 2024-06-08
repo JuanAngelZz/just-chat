@@ -1,5 +1,5 @@
 export const PORT = process.env.PORT ?? 4000
 
-export const CONECCTION_STRING = 'mongodb://localhost:27017/just-chat'
+export const CONECCTION_STRING = process.env.MONGO_URL ?? 'mongodb://localhost:27017/just-chat'
 
-export const JWT_SECRET = 'Ch4Rm4Nd3r'
+export const JWT_SECRET = process.env.JWT_SECRET ?? 'Ch4Rm4Nd3r'
