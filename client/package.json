@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "vite preview --host"
+    "start": "vite --host"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
@@ -32,7 +31,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.1.4"
+    "vite": "^5.1.4",
+    "vite-plugin-dist-importer": "^0.3.2"
   },
   "eslintConfig": {
     "extends": "../node_modules/standard/eslintrc.json"
