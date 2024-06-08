@@ -14,7 +14,7 @@ const io = new Server(server, {
     maxDisconnectionDuration: 5 * 60 * 1000
   },
   cors: {
-    origin: 'http://localhost:5173',
+    origin: process.env.REACT_APP_URL || 'http://localhost:5173',
     credentials: true
   }
 })
