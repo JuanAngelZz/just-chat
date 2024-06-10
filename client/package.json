@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "react-scripts build && vercel/static-build",
+    "build": "react-scripts build",
     "preview": "vite preview",
     "start": "serve dist -s -n -L -p 5000"
   },
