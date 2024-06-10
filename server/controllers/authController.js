@@ -32,7 +32,7 @@ export const register = async (req, res) => {
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
       domain: REACT_APP_URL,
-      sameSite: 'none'
+      sameSite: 'None'
     })
 
     return res.status(201).json({
@@ -90,7 +90,7 @@ export const signin = async (req, res) => {
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
       domain: REACT_APP_URL,
-      sameSite: 'none'
+      sameSite: 'None'
     })
 
     const user = {
