@@ -16,7 +16,7 @@ const io = new Server(server, {
     maxDisconnectionDuration: 5 * 60 * 1000
   },
   cors: {
-    origin: 'https://just-chat-io.vercel.app',
+    origin: REACT_APP_URL,
     credentials: true
   }
 })

@@ -5,6 +5,7 @@ import authRoutes from './routes/authRoutes.js'
 import chatroomRoutes from './routes/chatroomRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import cors from 'cors'
+import { REACT_APP_URL } from './config.js'
 
 const app = express()
 
@@ -12,7 +13,7 @@ app.disable('x-powered-by')
 
 app.use(
   cors({
-    origin: 'https://just-chat-io.vercel.app',
+    origin: REACT_APP_URL,
     credentials: true
   })
 )
