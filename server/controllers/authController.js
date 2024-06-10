@@ -28,6 +28,7 @@ export const register = async (req, res) => {
     const token = generateToken(savedUser)
 
     res.cookie('token', token, {
+      path: '/',
       httpOnly: true,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
@@ -86,6 +87,7 @@ export const signin = async (req, res) => {
     const token = generateToken(userFound)
 
     res.cookie('token', token, {
+      path: '/',
       httpOnly: true,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
