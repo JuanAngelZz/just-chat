@@ -5,3 +5,5 @@ export const CONECCTION_STRING = process.env.MONGO_URL ?? 'mongodb://localhost:2
 export const JWT_SECRET = process.env.JWT_SECRET ?? 'Ch4Rm4Nd3r'
 
 export const REACT_APP_URL = process.env.REACT_APP_URL ?? 'http://localhost:5173'
+
+export const REACT_APP_DOMAIN = process.env.REACT_APP_DOMAIN ?? 'localhost:5173'

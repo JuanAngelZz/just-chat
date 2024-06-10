@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { generateRandomUsername } from '../utils/generateRandomUsername.js'
 import { generateToken } from '../utils/generateToken.js'
 import jwt from 'jsonwebtoken'
-import { JWT_SECRET, REACT_APP_URL } from '../config.js'
+import { JWT_SECRET, REACT_APP_DOMAIN } from '../config.js'
 
 export const register = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ export const register = async (req, res) => {
       httpOnly: true,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
-      domain: REACT_APP_URL,
+      domain: REACT_APP_DOMAIN,
       sameSite: 'None'
     })
 
@@ -91,7 +91,7 @@ export const signin = async (req, res) => {
       httpOnly: true,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
-      domain: REACT_APP_URL,
+      domain: REACT_APP_DOMAIN,
       sameSite: 'None'
     })
 
