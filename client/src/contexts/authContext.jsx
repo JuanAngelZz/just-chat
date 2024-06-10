@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { logout, profile, register, signin, signup, verify } from '../api/auth'
+import Cookies from 'js-cookie'
 
 export const AuthContext = createContext()
 
@@ -18,14 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [callout, setCallout] = useState(null)
-
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-  }
-
-  const token = getCookie('token')
+  const token = Cookies.get('token')
 
   useEffect(() => {
 
