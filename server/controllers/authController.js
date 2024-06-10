@@ -31,7 +31,8 @@ export const register = async (req, res) => {
       path: '/',
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None'
+      sameSite: 'None',
+      httpOnly: false
     })
 
     return res.status(201).json({
@@ -88,7 +89,8 @@ export const signin = async (req, res) => {
       path: '/',
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None'
+      sameSite: 'None',
+      httpOnly: false
     })
 
     const user = {
