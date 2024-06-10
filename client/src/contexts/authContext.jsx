@@ -24,8 +24,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
 
     if (token) {
+      console.log('verify', token)
       verifyUser()
     } else {
+      console.log('create', token)
       createUser()
     }
   }, [token])
