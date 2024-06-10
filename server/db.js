@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 import { CONECCTION_STRING } from './config.js'
 
-export const connectDB = () => {
+export const connectDB = async () => {
   try {
-    mongoose.connect(CONECCTION_STRING)
+    await mongoose.connect(CONECCTION_STRING)
     console.log('Database connected')
   } catch (error) {
     console.log(error)

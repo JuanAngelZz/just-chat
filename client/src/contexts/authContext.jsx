@@ -19,16 +19,16 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [callout, setCallout] = useState(null)
+  const token = Cookies.get('token')
 
   useEffect(() => {
-    const token = Cookies.get('token')
 
     if (token) {
       verifyUser()
     } else {
       createUser()
     }
-  }, [])
+  }, [token])
 
   useEffect(() => {
     if (errors.length > 0) {

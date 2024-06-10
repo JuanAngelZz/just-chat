@@ -16,7 +16,7 @@ const ChatArea = () => {
 
   useEffect(() => {
     getCurrentChat(chatId)
-  }, [chatId, getCurrentChat])
+  }, [chatId])
 
   useEffect(() => {
     const handleChatMessage = (data) => {
@@ -32,7 +32,7 @@ const ChatArea = () => {
     return () => {
       socket.off('chat message', handleChatMessage)
     }
-  }, [chatId, addMessage])
+  }, [chatId])
 
   useEffect(() => {
     scrollToBottom()
