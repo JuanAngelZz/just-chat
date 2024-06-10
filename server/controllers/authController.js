@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { generateRandomUsername } from '../utils/generateRandomUsername.js'
 import { generateToken } from '../utils/generateToken.js'
 import jwt from 'jsonwebtoken'
-import { JWT_SECRET, REACT_APP_DOMAIN } from '../config.js'
+import { JWT_SECRET } from '../config.js'
 
 export const register = async (req, res) => {
   try {
@@ -29,7 +29,6 @@ export const register = async (req, res) => {
 
     res.cookie('token', token, {
       path: '/',
-      httpOnly: false,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'None'
@@ -87,7 +86,6 @@ export const signin = async (req, res) => {
 
     res.cookie('token', token, {
       path: '/',
-      httpOnly: false,
       maxAge: 14 * 24 * 60 * 60 * 1000,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'None'
