@@ -12,4 +12,3 @@ export const profile = () => axios.get('/profile')
 
 export const changeAvatar = (url) => axios.post('/avatar', { url })
 
-export const logout = () => axios.post('/logout')

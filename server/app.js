@@ -1,6 +1,5 @@
 import express from 'express'
 import morgan from 'morgan'
-import cookieParser from 'cookie-parser'
 import authRoutes from './routes/authRoutes.js'
 import chatroomRoutes from './routes/chatroomRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
@@ -19,7 +18,6 @@ app.use(
 )
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cookieParser())
 
 app.use('/api', authRoutes)
 app.use('/api', chatroomRoutes)

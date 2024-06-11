@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { logout, profile, register, signin, signup, verify } from '../api/auth'
-import Cookies from 'js-cookie'
+import { profile, register, signin, signup, verify } from '../api/auth'
 
 export const AuthContext = createContext()
 
@@ -19,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [callout, setCallout] = useState(null)
-  const token = Cookies.get('token')
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
 
@@ -49,6 +48,7 @@ export const AuthProvider = ({ children }) => {
   const signInUser = async (data) => {
     try {
       const res = await signin(data)
+      localStorage.setItem('token', res.data.token)
       setUser(res.data)
       setIsLoading(false)
       setCallout('Login successful')
@@ -81,6 +81,7 @@ export const AuthProvider = ({ children }) => {
   const createUser = async () => {
     try {
       const res = await register()
+      localStorage.setItem('token', res.data.token)
       setUser(res.data)
       setIsLoading(false)
       setCallout('User created successfully')
@@ -124,17 +125,9 @@ export const AuthProvider = ({ children }) => {
   }
 
   const logoutUser = async () => {
-    try {
-      await logout()
-      setUser(null)
-      window.location.reload()
-    } catch (error) {
-      if (error.response.data.message) {
-        setErrors([error.response.data.message])
-      } else {
-        setErrors(error.response.data)
-      }
-    }
+    localStorage.removeItem('token')
+    setUser(null)
+    window.location.reload()
   }
 
   return (

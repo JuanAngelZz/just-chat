@@ -27,22 +27,16 @@ export const register = async (req, res) => {
 
     const token = generateToken(savedUser)
 
-    res.cookie('token', token, {
-      path: '/',
-      maxAge: 14 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None',
-      httpOnly: false,
-      domain: REACT_APP_DOMAIN
-    })
-
-    return res.status(201).json({
+    const user = {
       id: savedUser._id,
       username: savedUser.username,
       email: savedUser.email,
       code: savedUser.code,
-      signed: savedUser.signed
-    })
+      signed: savedUser.signed,
+      token
+    }
+
+    return res.status(201).json(user)
   } catch (error) {
     res.status(500).json({ message: 'Something went wrong' })
   }
@@ -52,6 +46,12 @@ export const signup = async (req, res) => {
   const { username, email, password } = req.body
 
   try {
+    const userFound = await User.findOne({ email })
+
+    if (userFound) {
+      return res.status(409).json({ message: 'Email already exists' })
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const body = { username, email, password: hashedPassword, signed: true }
@@ -86,21 +86,13 @@ export const signin = async (req, res) => {
 
     const token = generateToken(userFound)
 
-    res.cookie('token', token, {
-      path: '/',
-      maxAge: 14 * 24 * 60 * 60 * 1000,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'None',
-      httpOnly: false,
-      domain: REACT_APP_DOMAIN
-    })
-
     const user = {
       username: userFound.username,
       email: userFound.email,
       signed: userFound.signed,
       code: userFound.code,
-      avatar: userFound.avatar
+      avatar: userFound.avatar,
+      token
     }
 
     res.status(200).json(user)
@@ -135,11 +127,13 @@ export const profile = async (req, res) => {
 }
 
 export const verifyToken = async (req, res) => {
-  const { token } = req.cookies
+  const authHeader = req.headers.authorization
 
-  if (!token) {
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
+
+  const token = authHeader.split(' ')[1]
 
   jwt.verify(token, JWT_SECRET, async (err, data) => {
     if (err) {
@@ -167,7 +161,7 @@ export const verifyToken = async (req, res) => {
       if (error.kind === 'ObjectId') {
         return res.status(404).json({ message: 'User not found' })
       }
-      res.status(404).json({ message: error.message })
+      res.status(400).json({ message: error.message })
     }
   })
 }
@@ -183,11 +177,4 @@ export const updateAvatar = async (req, res) => {
     }
     res.status(404).json({ message: error.message })
   }
-}
-
-export const logout = (req, res) => {
-  res.cookie('token', '', {
-    maxAge: 1
-  })
-  res.sendStatus(200)
 }

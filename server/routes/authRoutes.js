@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import {
-  logout,
   profile,
   register,
   signin,
@@ -29,6 +28,5 @@ router.post(
   validatePartialSchema(authSchema),
   updateAvatar
 )
-router.post('/logout', logout)
 
 export default router
